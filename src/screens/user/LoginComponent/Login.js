@@ -37,8 +37,6 @@ const Login = () => {
                 const userSnapshot = await firebase.database().ref(`Users/${userUID}/tipo`).once("value");
                 const userType = userSnapshot.val();
     
-                console.log("Tipo de usuario:", userType);
-            
                 if (userType === "User") {
                     navigation.navigate("Menu");
                 } else if (userType === "Admin") {

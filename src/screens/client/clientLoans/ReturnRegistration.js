@@ -21,7 +21,7 @@ const ReturnRegistration = () => {
             ? Object.values(snapshot.val())
             : [];
           setLoans(loansData);
-          console.log(loansData);
+  
         });
     } catch (error) {
       console.error("Error al recuperar el UserUID de SecureStore:", error);

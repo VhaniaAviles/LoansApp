@@ -28,11 +28,14 @@ const ProductDetail = ({ route }) => {
   const fetchUserMainData = async () => {
     try {
       const uid = await SecureStore.getItemAsync("userUID");
-      console.log("UID obtenido desde SecureStore:", uid);
       if (uid) {
         validateStockAndService(uid);
       } else {
-        console.log("El UID no está disponible en SecureStore");
+        Alert.alert(
+          "Advertencia",
+          "Debe iniciar sesión para solicitar un préstamo."
+        );
+        navigation.navigate("Login");
       }
     } catch (error) {
       console.error("Error al obtener el UID desde SecureStore:", error);
@@ -45,9 +48,6 @@ const ProductDetail = ({ route }) => {
 
 
   const validateStockAndService = async (userUID) => {
-    console.log("UserUID", userUID);
-    console.log("ProductDetail", productDetail);
-    console.log("Quantity", quantityRequested);
     if (quantityRequested > 0 && productDetail.stock > 0) {
       addToCartFirebase(productDetail, quantityRequested, userUID)
         .then((success) => {

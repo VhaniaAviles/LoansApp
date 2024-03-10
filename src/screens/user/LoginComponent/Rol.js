@@ -1,15 +1,12 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import * as SecureStore from 'expo-secure-store'; 
-import { loginStyle } from '../../../styles/loginComponent/LoginViewStyle';
 import { useNavigation } from '@react-navigation/native';
 
 const Rol = () => {
   const navigation = useNavigation();
 
-  const navigateScreen = async (userType) => {
-    await SecureStore.setItemAsync("userType", userType);
-    navigation.navigate("Menu");
+  const navigateScreen = (userType) => {
+    navigation.navigate("Menu", { userType });
   };
 
   return (

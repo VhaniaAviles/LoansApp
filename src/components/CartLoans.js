@@ -42,7 +42,6 @@ export const addToCartFirebase = (productDetail, quantityRequested, userUID) => 
             stock: (stock - quantityRequested).toString(),
           });
         } else {
-          console.log("Nodo no encontrado");
           resolve(false);
         }
       })

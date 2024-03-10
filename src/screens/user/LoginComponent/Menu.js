@@ -1,17 +1,20 @@
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useCallback, useState } from 'react'
-import { loginStyle } from '../../../styles/loginComponent/LoginViewStyle';
-import * as SecureStore from "expo-secure-store";
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
-const Menu = () => {
+const Menu = ({route}) => {
+  const storedUser = route;
   const navigation = useNavigation();
   const [storedUserType, setStoredUserType] = useState(null);
   const fetchUserType = async () => {
     try {
-      const storedUser = await SecureStore.getItemAsync("userType");
-      console.log(storedUser)
-      setStoredUserType(storedUser);
+      /** Puede ser null o undefined ==*/ 
+      if (storedUser.params == null) {
+       const storedUserNotNull = "User"
+        setStoredUserType(storedUserNotNull);
+        return;
+      }
+      setStoredUserType(storedUser.params.userType);
     } catch (error) {
       console.error("Error al recuperar el UserUID de SecureStore:", error);
     }
