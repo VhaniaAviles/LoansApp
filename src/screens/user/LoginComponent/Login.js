@@ -38,10 +38,11 @@ const Login = () => {
                 const userType = userSnapshot.val();
     
                 console.log("Tipo de usuario:", userType);
-                navigation.navigate("Menu");
+            
                 if (userType === "User") {
                     navigation.navigate("Menu");
                 } else if (userType === "Admin") {
+                    
                     navigation.navigate("Rol");
                 } else {
                     Alert.alert("Error", "Tipo de usuario desconocido.");

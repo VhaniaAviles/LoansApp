@@ -39,6 +39,11 @@ const ProductDetail = ({ route }) => {
     }
   };
 
+  const handleAddToCart = () => {
+    fetchUserMainData();
+  };
+
+
   const validateStockAndService = async (userUID) => {
     console.log("UserUID", userUID);
     console.log("ProductDetail", productDetail);
@@ -86,10 +91,6 @@ const ProductDetail = ({ route }) => {
       );
     }
   }
-
-  const handleAddToCart = () => {
-    fetchUserMainData();
-  };
 
   return (
     <View>

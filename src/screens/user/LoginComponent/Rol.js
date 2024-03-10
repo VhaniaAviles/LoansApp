@@ -1,13 +1,17 @@
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import * as SecureStore from 'expo-secure-store'; 
 import { loginStyle } from '../../../styles/loginComponent/LoginViewStyle';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const Rol = () => {
   const navigation = useNavigation();
-  const navigateScreen = () => {
+
+  const navigateScreen = async (userType) => {
+    await SecureStore.setItemAsync("userType", userType);
     navigation.navigate("Menu");
   };
+
   return (
     <ImageBackground
       source={require("../../../../assets/fondo.jpg")}
@@ -17,7 +21,7 @@ const Rol = () => {
     >
       <View style={styles.containerPrincipal}>
         <Text style={styles.textSelectRol}>Escoja su Rol</Text>
-        <TouchableOpacity onPress={navigateScreen}>
+        <TouchableOpacity onPress={() => navigateScreen("Admin")}>
           <View style={styles.containerIcons}>
             <Image
               style={styles.iconRolAdmin}
@@ -26,7 +30,7 @@ const Rol = () => {
             <Text style={styles.textRol}>Administrador</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={navigateScreen}>
+        <TouchableOpacity onPress={() => navigateScreen("User")}>
           <View style={styles.containerIcons}>
             <Image
               style={styles.iconRolUser}
@@ -39,6 +43,7 @@ const Rol = () => {
     </ImageBackground>
   );
 }
+
 
 export default Rol
 

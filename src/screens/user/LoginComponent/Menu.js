@@ -1,8 +1,37 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useState } from 'react'
 import { loginStyle } from '../../../styles/loginComponent/LoginViewStyle';
+import * as SecureStore from "expo-secure-store";
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const Menu = () => {
+  const navigation = useNavigation();
+  const [storedUserType, setStoredUserType] = useState(null);
+  const fetchUserType = async () => {
+    try {
+      const storedUser = await SecureStore.getItemAsync("userType");
+      console.log(storedUser)
+      setStoredUserType(storedUser);
+    } catch (error) {
+      console.error("Error al recuperar el UserUID de SecureStore:", error);
+    }
+  };
+  const navigateLoansHome = () => {
+    if (storedUserType === "Admin") {
+      navigation.navigate("AdminLoansNavigation");
+    } else {
+      navigation.navigate("ClientLoansNavigation");
+    }
+  };
+  useFocusEffect(
+    useCallback(() => {
+      fetchUserType();
+    }, [])
+  );
+
+
+  // si yo escogí el rol admin, voy a navegar a AdminLoansNavigation, si yo escogí el rol client, voy a navegar a ClientLoansNavigation
+
   return (
     <ImageBackground
       source={require("../../../../assets/fondo.jpg")}
@@ -12,13 +41,15 @@ const Menu = () => {
     >
       <View style={styles.columnContainer}>
         <View style={styles.column}>
-          <View style={styles.containerOption}>
-            <Image
-              style={styles.iconOptionMenu}
-              source={require("../../../../assets/iconLoans.png")}
-            />
-            <Text style={styles.textRol}>Prestamos</Text>
-          </View>
+          <TouchableOpacity onPress={navigateLoansHome}>
+            <View style={styles.containerOption}>
+              <Image
+                style={styles.iconOptionMenu}
+                source={require("../../../../assets/iconLoans.png")}
+              />
+              <Text style={styles.textRol}>Prestamos</Text>
+            </View>
+          </TouchableOpacity>
 
           <View style={styles.containerOption}>
             <Image
