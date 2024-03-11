@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import React, { useState, useCallback } from "react";
 import * as SecureStore from "expo-secure-store";
 import firebase from "../../../../Firebase";
@@ -21,7 +21,6 @@ const ReturnRegistration = () => {
             ? Object.values(snapshot.val())
             : [];
           setLoans(loansData);
-  
         });
     } catch (error) {
       console.error("Error al recuperar el UserUID de SecureStore:", error);
@@ -33,7 +32,7 @@ const ReturnRegistration = () => {
       fetchUserUID();
     }, [])
   );
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Historial de Devoluciones</Text>

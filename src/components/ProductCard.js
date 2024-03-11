@@ -1,6 +1,6 @@
 import { Alert, StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native'
 import React, { useCallback, useState } from 'react'
-import { useFocusEffect,useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import firebase from '../../Firebase';
 import 'firebase/database';
 

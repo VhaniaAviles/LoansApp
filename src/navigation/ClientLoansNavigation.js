@@ -62,13 +62,12 @@ const ClientLoansNavigator = () => {
 };
 
 const ClientLoansNavigation = () => {
-    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="ClientLoansNavigator" component={ClientLoansNavigator} />
-        <Stack.Screen name="ProductDetail" component={ProductDetail} />
-      </Stack.Navigator>
-    );
-  };
-  
-  export default ClientLoansNavigation;
-  
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="ClientLoansNavigator" component={ClientLoansNavigator} />
+      <Stack.Screen name="ProductDetail" component={ProductDetail} />
+    </Stack.Navigator>
+  );
+};
+
+export default ClientLoansNavigation;

@@ -4,10 +4,9 @@ import { loginStyle } from '../../../styles/loginComponent/LoginViewStyle'
 import { Entypo } from '@expo/vector-icons';
 import Spinner from "react-native-loading-spinner-overlay";
 import { useNavigation } from "@react-navigation/native";
-import { auth } from "../../../../Firebase";
+import firebase, { auth } from "../../../../Firebase";
 import * as SecureStore from "expo-secure-store";
 import { isValidInput } from '../../../util/Util';
-import firebase from "../../../../Firebase";
 
 const Login = () => {
 
@@ -25,7 +24,7 @@ const Login = () => {
             );
             return;
         }
-    
+
         setLoading(true);
         auth()
             .signInWithEmailAndPassword(email, password)
@@ -33,19 +32,19 @@ const Login = () => {
                 const user = userCredentials.user;
                 const userUID = user.uid;
                 await SecureStore.setItemAsync("userUID", userUID);
-    
+
                 const userSnapshot = await firebase.database().ref(`Users/${userUID}/tipo`).once("value");
                 const userType = userSnapshot.val();
-    
+
                 if (userType === "User") {
                     navigation.navigate("Menu");
                 } else if (userType === "Admin") {
-                    
+
                     navigation.navigate("Rol");
                 } else {
                     Alert.alert("Error", "Tipo de usuario desconocido.");
                 }
-    
+
                 setLoading(false);
             })
             .catch((error) => {
@@ -53,7 +52,7 @@ const Login = () => {
                 Alert.alert("Error", error.message);
             });
     };
-    
+
 
     const handleRegister = () => {
         navigation.navigate("Register");
@@ -131,8 +130,8 @@ const Login = () => {
 
                 </View>
 
-
             </ImageBackground>
+
             <Spinner
                 visible={loading}
                 textContent={"Cargando..."}

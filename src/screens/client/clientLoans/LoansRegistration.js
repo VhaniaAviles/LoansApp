@@ -21,7 +21,7 @@ const LoansRegistration = () => {
             ? Object.values(snapshot.val())
             : [];
           setLoans(loansData);
-    
+
         });
     } catch (error) {
       console.error("Error al recuperar el UserUID de SecureStore:", error);
@@ -83,14 +83,14 @@ const LoansRegistration = () => {
         loansReturnID: loansReturnID,
       });
 
-       // 4. Actualizar el stock en Products
-       const productID = loanToReturn.productID;
-       const stockSnapshot = await firebase.database().ref(`Products/${productID}/stock`).once("value");
-       const currentStock = parseInt(stockSnapshot.val()) || 0;
-   
-       await firebase.database().ref(`Products/${productID}`).update({
-         stock: currentStock + loanToReturn.cantidadSolicitada,
-       });
+      // 4. Actualizar el stock en Products
+      const productID = loanToReturn.productID;
+      const stockSnapshot = await firebase.database().ref(`Products/${productID}/stock`).once("value");
+      const currentStock = parseInt(stockSnapshot.val()) || 0;
+
+      await firebase.database().ref(`Products/${productID}`).update({
+        stock: currentStock + loanToReturn.cantidadSolicitada,
+      });
 
       // 4. Eliminar la entrada en LoansHistory por loansHistoryID
       const loansRef = firebase.database().ref("LoansHistory");
@@ -188,23 +188,28 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#f5f5f5",
   },
+
   header: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
     color: "#333",
   },
+
   registroPrestamo: {
     flexDirection: "row",
   },
+
   infoContainer: {
     flex: 1,
   },
+
   infoText: {
-    fontWeight: "750",
+    fontWeight: "bold",
     fontSize: 15,
     color: "#333",
   },
+
   noLoansText: {
     fontSize: 18,
     color: "#555",

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingHorizontal: 15,
-    color : "white",
+    color: "white",
   },
   inputText: {
     flex: 1,
