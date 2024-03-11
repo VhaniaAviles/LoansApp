@@ -1,42 +1,42 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
-import React, {useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import firebase from '../../../../Firebase'
 import { useFocusEffect } from "@react-navigation/native";
 
 const ClientPerfil = () => {
   const [usuarioActual, setUsuarioActual] = useState(null);
 
-    const fetchData = async () => {
-      try {
-        // Espera a que se haya iniciado sesión para obtener el usuario actual
-        const usuarioActual = firebase.auth().currentUser;
+  const fetchData = async () => {
+    try {
+      // Espera a que se haya iniciado sesión para obtener el usuario actual
+      const usuarioActual = firebase.auth().currentUser;
 
-        if (usuarioActual) {
-          // Obtiene los detalles del usuario desde la base de datos
-          const snapshot = await firebase
-            .database()
-            .ref(`Users/${usuarioActual.uid}`)
-            .once("value");
+      if (usuarioActual) {
+        // Obtiene los detalles del usuario desde la base de datos
+        const snapshot = await firebase
+          .database()
+          .ref(`Users/${usuarioActual.uid}`)
+          .once("value");
 
-          const data = snapshot.val();
-          
-          if (data) {
-            setUsuarioActual(data);
-            
-          }
-        } else {
-          // El usuario no está autenticado, podrías redirigir a la pantalla de inicio de sesión
+        const data = snapshot.val();
+
+        if (data) {
+          setUsuarioActual(data);
+
         }
-      } catch (error) {
-        console.error("Error al obtener los datos del usuario: ", error);
+      } else {
+        // El usuario no está autenticado, podrías redirigir a la pantalla de inicio de sesión
       }
-    };
-    useFocusEffect(
-      useCallback(() => {
-        fetchData();
-      }, [])
-    );
-    
+    } catch (error) {
+      console.error("Error al obtener los datos del usuario: ", error);
+    }
+  };
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [])
+  );
+
 
 
   if (!usuarioActual) {
